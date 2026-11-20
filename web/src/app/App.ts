@@ -161,6 +161,9 @@ export class App {
         this.lessons.setOpen(true);
       },
       setup: () => void this.setupPanel.setOpen(true),
+            deleteSession: async (id) => {
+        if (await storage.sessions.remove(id)) await this.refreshHome();
+      },
     });
     this.setupPanel.connect({
       camera: () => ({ running: this.running, brightness: this.brightness.latest, calibrated: this.fretboard !== null }),

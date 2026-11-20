@@ -288,6 +288,8 @@ export const enDictionary = {
   "home.reason.mastered": "Mastered",
   "home.recent": "Recent sessions",
   "home.recent.none": "No sessions yet. Your first one shows up here.",
+  "home.recent.delete": "Delete this session",
+  "home.recent.confirm": "Delete?",
   "home.trend": "Accuracy, last {count} sessions",
   "home.trend.up": "Up {points} points on your earlier sessions.",
   "home.trend.down": "Down {points} points: try a slower tempo, or loop the hard notes.",

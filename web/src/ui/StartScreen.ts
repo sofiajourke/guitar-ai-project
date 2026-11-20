@@ -25,6 +25,7 @@ export interface HomeActions {
   openChords(): void;
   openSong(id: string): void;
   setup(): void;
+  deleteSession(id: string): void;
 }
 
 export class StartScreen {
@@ -163,6 +164,7 @@ export class StartScreen {
         this.draft = { ...this.profile };
         this.render(t);
       },
+      deleteSession: (id) => this.actions?.deleteSession(id),
     });
   }
 

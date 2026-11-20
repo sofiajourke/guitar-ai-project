@@ -286,6 +286,8 @@ export const esDictionary: Dictionary = {
   "home.reason.mastered": "Dominado",
   "home.recent": "Sesiones recientes",
   "home.recent.none": "Todavía no hay sesiones. La primera aparecerá aquí.",
+  "home.recent.delete": "Borrar esta sesión",
+  "home.recent.confirm": "¿Borrar?",
   "home.trend": "Precisión, últimas {count} sesiones",
   "home.trend.up": "{points} puntos más que en tus sesiones anteriores.",
   "home.trend.down": "{points} puntos menos: prueba más lento, o repite en bucle las notas difíciles.",
