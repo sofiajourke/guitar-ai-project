@@ -39,8 +39,7 @@ import { ListenPanel } from "../ui/ListenPanel";
 import { NotesPanel } from "../ui/NotesPanel";
 import type { VisionLink } from "../fusion/visionLink";
 import { SetupPanel } from "../ui/SetupPanel";
-import { listSessions } from "../lesson/sessionStore";
-import { listSongs } from "../song/library";
+import { storage } from "../storage";
 import { guidanceLayer } from "../render/guidanceLayer";
 import { songSummaries } from "../ui/songOverview";
 import { Brightness } from "../vision/brightness";
@@ -234,8 +233,8 @@ export class App {
 
   /** The dashboard's sessions, newest first. */
   private async refreshHome() {
-    this.start.setRecords(await listSessions(50));
-    this.start.setSongs(songSummaries(await listSongs()));
+    this.start.setRecords(await storage.sessions.list(50));
+    this.start.setSongs(songSummaries(await storage.songs.list()));
   }
 
   /** Note exercises, from anywhere: over the class when the camera runs, the home card put away. */

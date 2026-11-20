@@ -268,3 +268,23 @@ export async function saveSession(record: SessionRecord): Promise<boolean> {
     db.close();
   }
 }
+
+/** Removes one session by its id. False when the browser refuses. */
+export async function deleteSession(id: string): Promise<boolean> {
+  let db: IDBDatabase;
+  try {
+    db = await open();
+  } catch {
+    return false;
+  }
+  try {
+    const transaction = db.transaction(STORE, "readwrite");
+    transaction.objectStore(STORE).delete(id);
+    await done(transaction);
+    return true;
+  } catch {
+    return false;
+  } finally {
+    db.close();
+  }
+}
