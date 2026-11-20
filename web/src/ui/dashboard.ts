@@ -27,6 +27,8 @@ export interface DashboardContext {
   songs: readonly SongSummary[];
   openSong(id: string): void;
   editProfile(): void;
+  /** Deletes one session; the dashboard is redrawn afterwards. */
+  deleteSession(id: string): void;
 }
 
 const percent = (accuracy: number) => `${Math.round(accuracy * 100)}%`;
@@ -106,6 +108,7 @@ export function dashboardView(ctx: DashboardContext): HTMLElement[] {
           element("span", { className: "at", text: dates.format(record.startedAt) }),
           element("span", { className: "grow", text: `${title} · ${t(record.mode === "loop" ? "notes.mode.loop" : "notes.mode.playThrough")}` }),
           element("b", { text: record.attempted > 0 ? percent(record.accuracy) : "—" }),
+          deleteButton(t, () => ctx.deleteSession(record.id)),
         ]),
       );
     }
@@ -130,6 +133,33 @@ export function dashboardView(ctx: DashboardContext): HTMLElement[] {
   return nodes;
 }
 
+/**
+ * A small "×" that asks once before deleting: the first click turns it into
+ * "Delete?", a second click within three seconds deletes.
+ */
+function deleteButton(t: Translate, remove: () => void): HTMLButtonElement {
+  const button = element("button", {
+    className: "link delete",
+    text: "×",
+    attrs: { type: "button", "aria-label": t("home.recent.delete"), title: t("home.recent.delete") },
+  });
+  let armed = false;
+  let timer = 0;
+  button.addEventListener("click", () => {
+    if (armed) {
+      window.clearTimeout(timer);
+      remove();
+      return;
+    }
+    armed = true;
+    button.textContent = t("home.recent.confirm");
+    timer = window.setTimeout(() => {
+      armed = false;
+      button.textContent = "×";
+    }, 3000);
+  });
+  return button;
+}
 /** Bars for the last sessions' accuracy, oldest on the left, and the same said in words. */
 function trendView(t: Translate, records: readonly SessionRecord[]): HTMLElement[] {
   const trend = accuracyTrend(records);

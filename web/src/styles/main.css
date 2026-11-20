@@ -1105,6 +1105,16 @@ button.ghost:hover {
   color: var(--dim);
 }
 
+.recent .delete {
+  color: var(--faint);
+  padding: 0 4px;
+}
+
+.recent .delete:hover,
+.recent .delete:focus-visible {
+  color: var(--dim);
+}
+
 button.link {
   border: none;
   background: none;
