@@ -37,7 +37,8 @@ import type { PlacedNote, VisionLink } from "../fusion/visionLink";
 import type { Attempt, NoteVerdict, Place } from "../lesson/noteJudge";
 import { NoteSession, summarize, type SessionSummary } from "../lesson/NoteSession";
 import { loadProfile } from "../lesson/profile";
-import { listSessions, recordOf, saveSession, type SessionRecord } from "../lesson/sessionStore";
+import { recordOf, type SessionRecord } from "../lesson/sessionStore";
+import { storage } from "../storage";
 import { clear, element, requireElement } from "./dom";
 import { feedbackText, type FeedbackText } from "./feedback";
 import { chooserView } from "./notesChooser";
@@ -160,7 +161,7 @@ export class NotesPanel {
     this.root.classList.remove("gone");
     this.toggle.setAttribute("aria-pressed", "true");
     this.view = "choose";
-    this.history = await listSessions(100);
+    this.history = await storage.sessions.list(100)
     const chosen = exerciseId ? exerciseById(exerciseId) : undefined;
     if (songId !== undefined) await this.openSongs(songId);
     else if (chosen) await this.play(chosen);
@@ -472,7 +473,7 @@ export class NotesPanel {
           `latency p50 ${latency?.p50.toFixed(0) ?? "—"} ms p95 ${latency?.p95.toFixed(0) ?? "—"} ms (n=${latency?.count ?? 0}), prior fired ${this.priorFired}`,
       );
       this.saved = record;
-      if (await saveSession(record)) {
+      if (await storage.sessions.save(record)) {
         this.history = [record, ...this.history];
         this.savedHandler();
       }
