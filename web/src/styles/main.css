@@ -130,6 +130,7 @@ body {
 
 #start,
 #help,
+#account,
 #lessons,
 #song,
 #tuner,
@@ -1413,3 +1414,25 @@ button.danger {
 .fret-guide-text { font-size: 14px; color: var(--ink); }
 .fret-legend { font-size: 12px; color: var(--faint); }
 .guide-paused { justify-self: start; }
+
+/* --- Account --- */
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.account-form input {
+  font: inherit;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--faint);
+  background: transparent;
+  color: inherit;
+}
+
+.account-message {
+  color: var(--dim);
+}

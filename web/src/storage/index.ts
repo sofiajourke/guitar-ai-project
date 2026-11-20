@@ -1,5 +1,6 @@
 /** The store the app uses. Swap this line to change where data is saved. */
-import { localStore } from "./localStore";
+import { syncStore } from "./syncStore";
 
-export const storage = localStore;
+export const storage = syncStore;
 export type { Storage } from "./Storage";
+export { flush, syncAll } from "./syncStore";

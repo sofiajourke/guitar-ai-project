@@ -26,6 +26,7 @@ export interface HomeActions {
   openSong(id: string): void;
   setup(): void;
   deleteSession(id: string): void;
+  account(): void;
 }
 
 export class StartScreen {
@@ -121,6 +122,9 @@ export class StartScreen {
       listen.addEventListener("click", () => this.listenHandler?.());
       row.append(listen);
     }
+    const account = element("button", { className: "ghost", text: t("home.account"), attrs: { type: "button" } });
+    account.addEventListener("click", () => this.actions?.account());
+    row.append(account);
     this.card.append(row);
 
     if (this.error) {

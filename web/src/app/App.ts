@@ -34,6 +34,7 @@ import { Calibrator } from "../ui/Calibrator";
 import { Coach, type CoachTone } from "../ui/Coach";
 import { requireElement } from "../ui/dom";
 import { Help } from "../ui/Help";
+import { AccountPanel } from "../ui/AccountPanel";
 import { LessonList } from "../ui/LessonList";
 import { ListenPanel } from "../ui/ListenPanel";
 import { NotesPanel } from "../ui/NotesPanel";
@@ -93,6 +94,7 @@ export class App {
   private calibrator = new Calibrator();
   private coach = new Coach();
   private help = new Help(() => this.t);
+  private account = new AccountPanel(() => this.t);
   private lessons = new LessonList(
     () => this.progress,
     () => this.t,
@@ -164,6 +166,7 @@ export class App {
             deleteSession: async (id) => {
         if (await storage.sessions.remove(id)) await this.refreshHome();
       },
+            account: () => this.account.setOpen(true),
     });
     this.setupPanel.connect({
       camera: () => ({ running: this.running, brightness: this.brightness.latest, calibrated: this.fretboard !== null }),
@@ -173,6 +176,7 @@ export class App {
       practiseByEar: () => this.openNotes(),
     });
     this.notesPanel.whenSaved(() => void this.refreshHome());
+    this.account.whenSynced(() => void this.refreshHome());
     void this.refreshHome();
 
     // One microphone, one listener at a time: the tuner, the note listener,
@@ -227,6 +231,7 @@ export class App {
     // The cards render themselves when opened, so only the open ones need
     // rebuilding — which is what makes switching language mid-session work.
     this.help.render();
+    this.account.render();
     if (this.lessons.open) this.lessons.render();
     if (this.tunerPanel.open) this.tunerPanel.render();
     if (this.listenPanel.open) this.listenPanel.render();

@@ -37,6 +37,7 @@
         <button id="calibrate-toggle" type="button"></button>
         <button id="setup-toggle" type="button"></button>
         <button id="help-toggle" type="button"></button>
+        <button id="account-toggle" type="button"></button>
         <button id="panel-toggle" type="button"></button>
       </nav>
 
@@ -70,6 +71,7 @@
         <div id="help-card" class="card"></div>
       </div>
 
+
       <div id="start">
         <div id="start-card" class="card"></div>
       </div>
@@ -91,6 +93,12 @@
       <div id="setup" class="gone">
         <div id="setup-card" class="card"></div>
       </div>
+      
+    <!-- Optional account: sign in to keep sessions in the cloud. Last, so it
+         opens on top of the start card too. -->
+    <div id="account" class="gone">
+      <div id="account-card" class="card"></div>
+    </div>
     </main>
 
     <script type="module" src="/src/main.ts"></script>
